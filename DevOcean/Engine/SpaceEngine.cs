@@ -27,6 +27,8 @@ namespace DevOcean.Engine
                 {
                     var taxData = this.inputProcessor.ReadInput();
 
+                    if()
+
                     var isValidInput = this.inputProcessor.IsValidateInput(taxData);
 
                     if (isValidInput)

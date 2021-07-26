@@ -2,7 +2,7 @@
 {
     public enum SpaceshipType
     {
-        Default = 0,
+        Unknown = 0,
         Cargo = 1,
         Family = 2
     }

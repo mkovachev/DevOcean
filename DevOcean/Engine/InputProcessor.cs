@@ -33,13 +33,13 @@ namespace DevOcean.Engine
                 this.writer.Write("Please type in an year of tax calculation: ");
                 var yearOfTaxCalculation = this.reader.ReadLine().ToLower().Trim();
 
-                this.writer.Write("Please type in a light miles traveled: ");
-                var lightMilesTraveled = this.reader.ReadLine().ToLower().Trim();
+                this.writer.Write("Please type in a light miles travaled: ");
+                var lightMilesTravaled = this.reader.ReadLine().ToLower().Trim();
 
                 taxData.Add(spaceshipType);
                 taxData.Add(purchaseDate);
                 taxData.Add(yearOfTaxCalculation);
-                taxData.Add(lightMilesTraveled);
+                taxData.Add(lightMilesTravaled);
             }
             catch (Exception ex)
             {
@@ -49,10 +49,10 @@ namespace DevOcean.Engine
             return taxData;
         }
 
-        public bool IsValidateInput(List<string> input)
+        public bool IsValidateInput(List<string> input) 
             => input.Count == InputParamsCount
-                && !input.Any(string.IsNullOrWhiteSpace)
-                && !input.Any(string.IsNullOrEmpty)
+                && !input.Any(i => string.IsNullOrWhiteSpace(i))
+                && !input.Any(i => string.IsNullOrEmpty(i))
                 && input.All(i => i.Any(x => !char.IsDigit(x)));
     }
 }
