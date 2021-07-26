@@ -2,7 +2,7 @@
 {
     public interface IInputProcessorHelper
     {
-        public string CapitalizeFirstletter(string input);
+        public string CapitalizeFirstLetter(string input);
 
         public string GetDigitsAfterThousandSeparator(string input);
     }
