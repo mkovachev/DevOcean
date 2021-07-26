@@ -1,15 +1,15 @@
 ﻿using DevOcean.Engine;
 using Xunit;
 
-namespace DevOcean.Tests.Engine
+namespace DevOcean.Tests.Infrastructure
 {
-    public class InputProcessorHelperTests
+    public class InputHelperTests
     {
-        private readonly InputProcessorHelper sut;
+        private readonly InputHelper sut;
 
-        public InputProcessorHelperTests()
+        public InputHelperTests()
         {
-            this.sut = new InputProcessorHelper();
+            this.sut = new InputHelper();
         }
 
         [Fact]

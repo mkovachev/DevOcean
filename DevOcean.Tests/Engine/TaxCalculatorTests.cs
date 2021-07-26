@@ -1,5 +1,6 @@
 ﻿using DevOcean.Engine;
 using DevOcean.Engine.Interfaces;
+using DevOcean.Infrastructure.Interfaces;
 using NSubstitute;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,11 +11,11 @@ namespace DevOcean.Tests.Engine
     public class TaxCalculatorTests
     {
         private readonly ITaxCalculator sut;
-        private readonly IInputProcessorHelper inputProcessorHelper = Substitute.For<IInputProcessorHelper>();
+        private readonly IInputHelper inputHelper = Substitute.For<IInputHelper>();
 
         public TaxCalculatorTests()
         {
-            this.sut = new TaxCalculator(inputProcessorHelper);
+            this.sut = new TaxCalculator(inputHelper);
         }
 
         [Theory]
@@ -28,9 +29,9 @@ namespace DevOcean.Tests.Engine
             int expected)
         {
             //Arange
-            this.inputProcessorHelper.CapitalizeFirstLetter(spaceshipType)
+            this.inputHelper.CapitalizeFirstLetter(spaceshipType)
                 .Returns(char.ToUpper(spaceshipType[0]) + spaceshipType.Substring(1));
-            this.inputProcessorHelper.GetDigitsAfterThousandSeparator(milesTraveled)
+            this.inputHelper.GetDigitsAfterThousandSeparator(milesTraveled)
                 .Returns(int.Parse(milesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
 
             var taxData = new List<string>()
@@ -58,9 +59,9 @@ namespace DevOcean.Tests.Engine
            string milesTraveled)
         {
             //Arange
-            this.inputProcessorHelper.CapitalizeFirstLetter(spaceshipType)
+            this.inputHelper.CapitalizeFirstLetter(spaceshipType)
                 .Returns(char.ToUpper(spaceshipType[0]) + spaceshipType.Substring(1));
-            this.inputProcessorHelper.GetDigitsAfterThousandSeparator(milesTraveled)
+            this.inputHelper.GetDigitsAfterThousandSeparator(milesTraveled)
                 .Returns(int.Parse(milesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
 
             var taxData = new List<string>()

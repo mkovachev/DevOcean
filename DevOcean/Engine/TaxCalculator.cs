@@ -1,5 +1,6 @@
 ﻿using DevOcean.Data.Enums;
 using DevOcean.Engine.Interfaces;
+using DevOcean.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -16,9 +17,9 @@ namespace DevOcean.Engine
         private const decimal TaxPer1000LightMilesFamily = 100;
         private const decimal TaxAmortizationPerYearFamily = 355;
 
-        private readonly IInputProcessorHelper inputProcessorHelper;
+        private readonly IInputHelper inputProcessorHelper;
 
-        public TaxCalculator(IInputProcessorHelper inputProcessorHelper)
+        public TaxCalculator(IInputHelper inputProcessorHelper)
         {
             this.inputProcessorHelper = inputProcessorHelper;
         }

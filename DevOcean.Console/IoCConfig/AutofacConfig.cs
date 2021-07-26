@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DevOcean.Engine;
 using DevOcean.Engine.Interfaces;
+using DevOcean.Infrastructure.Interfaces;
 using System.Reflection;
 
 namespace DevOcean.Console.IoCConfig
@@ -14,7 +15,7 @@ namespace DevOcean.Console.IoCConfig
             builder.RegisterAssemblyTypes(currentAssembly)
                    .AsImplementedInterfaces();
 
-            builder.RegisterType<InputProcessorHelper>().As<IInputProcessorHelper>().SingleInstance();
+            builder.RegisterType<InputHelper>().As<IInputHelper>().SingleInstance();
             builder.RegisterType<InputProcessor>().As<IInputProcessor>().SingleInstance();
 
             builder.RegisterType<SpaceEngine>().As<IEngine>().SingleInstance();

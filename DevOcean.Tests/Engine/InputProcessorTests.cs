@@ -12,10 +12,11 @@ namespace DevOcean.Tests.Engine
         private readonly IInputProcessor sut;
         private readonly IWriter writer = Substitute.For<IWriter>();
         private readonly IReader reader = Substitute.For<IReader>();
+        private readonly IInputHelper inputHelper = Substitute.For<IInputHelper>();
 
         public InputProcessorTests()
         {
-            this.sut = new InputProcessor(reader, writer);
+            this.sut = new InputProcessor(reader, writer, inputHelper);
         }
 
         [Theory]
