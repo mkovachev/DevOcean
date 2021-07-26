@@ -8,7 +8,7 @@ namespace DevOcean.Data.Models
     {
         public string PurchaseDate => DateTime.Now.ToString("MM/dd/yyyy");
 
-        public virtual SpaceshipType Type => SpaceshipType.Default;
+        public virtual SpaceshipType Type => SpaceshipType.Unknown;
 
     }
 }

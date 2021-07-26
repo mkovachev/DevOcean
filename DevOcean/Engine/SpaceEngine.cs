@@ -1,4 +1,5 @@
-﻿using DevOcean.Engine.Interfaces;
+﻿using DevOcean.Data.Enums;
+using DevOcean.Engine.Interfaces;
 using DevOcean.Infrastructure.Interfaces;
 using System;
 
@@ -27,8 +28,6 @@ namespace DevOcean.Engine
                 {
                     var taxData = this.inputProcessor.ReadInput();
 
-                    if()
-
                     var isValidInput = this.inputProcessor.IsValidateInput(taxData);
 
                     if (isValidInput)
@@ -45,7 +44,7 @@ namespace DevOcean.Engine
                 }
                 catch (Exception ex)
                 {
-                    this.writer.WriteLine($"{ex.Message}");
+                    this.writer.WriteLine($"{ex}");
                 }
 
                 this.writer.WriteLine("--------------------------------------");

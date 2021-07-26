@@ -52,11 +52,15 @@ namespace DevOcean.Engine
         }
 
         public bool IsValidateInput(List<string> input)
-            => input.Count == InputParamsCount
-                && !input.Any(i => string.IsNullOrWhiteSpace(i))
-                && !input.Any(i => string.IsNullOrEmpty(i))
-                && input.Skip(1).All(i => !i.Any(x => !char.IsDigit(x)))
-                && (SpaceshipType)Enum.Parse(typeof(SpaceshipType), this.CapitalizeFirstLetter(input[0])) != SpaceshipType.Unknown;
+        {
+            SpaceshipType type;
+            return input.Count == InputParamsCount
+                           && !input.Any(i => string.IsNullOrWhiteSpace(i))
+                           && !input.Any(i => string.IsNullOrEmpty(i))
+                           && input.Skip(1).All(i => !i.Any(x => !char.IsDigit(x)))
+                           && Enum.TryParse(this.CapitalizeFirstLetter(input[0]), out type) 
+                           && type != SpaceshipType.Unknown;
+        }
 
         public string CapitalizeFirstLetter(string input) => char.ToUpper(input[0]) + input.Substring(1);
 
