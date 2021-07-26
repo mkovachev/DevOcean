@@ -27,8 +27,8 @@ namespace DevOcean.Tests.Engine
             string milesTraveled,
             int expected)
         {
-            //Arange
-            this.inputProcessorHelper.CapitalizeFirstletter(spaceshipType)
+            // Arrange
+            this.inputProcessorHelper.CapitalizeFirstLetter(spaceshipType)
                 .Returns(char.ToUpper(spaceshipType[0]) + spaceshipType.Substring(1));
             this.inputProcessorHelper.GetDigitsAfterThousandSeparator(milesTraveled)
                 .Returns(int.Parse(milesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
@@ -41,10 +41,10 @@ namespace DevOcean.Tests.Engine
                 milesTraveled
             };
 
-            //Act
+            // Act
             var result = this.sut.CalculateTax(taxData);
 
-            //Assert
+            // Assert
             Assert.Equal(expected.ToString(), result);
         }
 
@@ -57,8 +57,8 @@ namespace DevOcean.Tests.Engine
            string yearForTaxCalculation,
            string milesTraveled)
         {
-            //Arange
-            this.inputProcessorHelper.CapitalizeFirstletter(spaceshipType)
+            // Arrange
+            this.inputProcessorHelper.CapitalizeFirstLetter(spaceshipType)
                 .Returns(char.ToUpper(spaceshipType[0]) + spaceshipType.Substring(1));
             this.inputProcessorHelper.GetDigitsAfterThousandSeparator(milesTraveled)
                 .Returns(int.Parse(milesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
@@ -71,10 +71,10 @@ namespace DevOcean.Tests.Engine
                 milesTraveled
             };
 
-            //Act
+            // Act
             var result = this.sut.CalculateTax(taxData);
 
-            //Assert
+            // Assert
             Assert.NotNull(result);
             Assert.IsType<string>(result);
         }

@@ -22,7 +22,7 @@ namespace DevOcean.Tests.Engine
         [InlineData("input")]
         public void ReadInput_Should_Return_List_OfType_Strings(string input)
         {
-            // Arange
+            // Arrange
             this.reader.ReadLine().ToLower().Trim().Returns(input);
 
             // Act
@@ -36,7 +36,7 @@ namespace DevOcean.Tests.Engine
         [InlineData("input")]
         public void ReadInput_Should_Return_List_With_Four_Elements(string input)
         {
-            // Arange
+            // Arrange
             this.reader.ReadLine().ToLower().Trim().Returns(input);
 
             // Act
@@ -44,6 +44,33 @@ namespace DevOcean.Tests.Engine
 
             // Assert
             Assert.True(result.Count == 4);
+        }
+        
+        [Theory]
+        [InlineData("family", "1", "1", "nonDigits")]
+        [InlineData("family", "1", "1", "")]
+        [InlineData("family", "1", "1", " ")]
+        [InlineData("family", "1", "1", null)]
+        public void IsValidInput_Should_Return_IsValidInput_False_If_Input_Contains_Null_WhiteSpace_NonDigits_Parameters(
+            string spaceshipType,
+            string yearOfPurchase,
+            string yearForTaxCalculation,
+            string milesTraveled)
+        {
+            // Arrange
+            var taxData = new List<string>()
+            {
+                spaceshipType,
+                yearOfPurchase,
+                yearForTaxCalculation,
+                milesTraveled
+            };
+
+            // Act
+            var result = this.sut.IsValidateInput(taxData);
+
+            // Assert
+            Assert.False(result);
         }
     }
 }

@@ -18,31 +18,31 @@ namespace DevOcean.Tests.Engine
             this.sut = new SpaceEngine(writer, inputProcessor, taxCalculator);
         }
 
-        [Theory]
-        [InlineData(null, "", " ", "2344")]
-        public void Start_Should_Return_IsValidInput_False_If_Input_Contains_Null_WhiteSpace_NonDigits_Parameters(
-             string spaceshipType,
-             string yearOfPurchase,
-             string yearForTaxCalculation,
-             string milesTravele)
-        {
-            // Arange
-            var taxData = new List<string>()
-            {
-                spaceshipType,
-                yearOfPurchase,
-                yearForTaxCalculation,
-                milesTravele
-            };
-
-            this.inputProcessor.ReadInput().Returns(taxData);
-            var result = this.inputProcessor.IsValidateInput(null);
-
-            // Act
-            this.sut.Start();
-
-            // Assert
-            Assert.False(result);
-        }
+        // [Theory]
+        // [InlineData("null", "", " ", null)]
+        // public void Start_Should_Return_IsValidInput_False_If_Input_Contains_Null_WhiteSpace_NonDigits_Parameters(
+        //      string spaceshipType,
+        //      string yearOfPurchase,
+        //      string yearForTaxCalculation,
+        //      string milesTraveled)
+        // {
+        //     // Arrange
+        //     var taxData = new List<string>()
+        //     {
+        //         spaceshipType,
+        //         yearOfPurchase,
+        //         yearForTaxCalculation,
+        //         milesTraveled
+        //     };
+        //
+        //     this.inputProcessor.ReadInput().Returns(taxData);
+        //     var result = this.inputProcessor.IsValidateInput(null);
+        //
+        //     // Act
+        //     this.sut.Start();
+        //
+        //     // Assert
+        //     Assert.False(result);
+        // }
     }
 }
