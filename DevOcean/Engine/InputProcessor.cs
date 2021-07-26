@@ -1,7 +1,9 @@
-﻿using DevOcean.Engine.Interfaces;
+﻿using DevOcean.Data.Enums;
+using DevOcean.Engine.Interfaces;
 using DevOcean.Infrastructure.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace DevOcean.Engine
@@ -49,10 +51,17 @@ namespace DevOcean.Engine
             return taxData;
         }
 
-        public bool IsValidateInput(List<string> input) 
+        public bool IsValidateInput(List<string> input)
             => input.Count == InputParamsCount
                 && !input.Any(i => string.IsNullOrWhiteSpace(i))
                 && !input.Any(i => string.IsNullOrEmpty(i))
-                && input.All(i => i.Any(x => !char.IsDigit(x)));
+                && input.Skip(1).All(i => !i.Any(x => !char.IsDigit(x)))
+                && (SpaceshipType)Enum.Parse(typeof(SpaceshipType), this.CapitalizeFirstLetter(input[0])) != SpaceshipType.Unknown;
+
+        public string CapitalizeFirstLetter(string input) => char.ToUpper(input[0]) + input.Substring(1);
+
+        public string GetDigitsAfterThousandSeparator(string input)
+            => int.Parse(input).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0];
+
     }
 }
