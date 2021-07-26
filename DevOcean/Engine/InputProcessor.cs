@@ -49,7 +49,7 @@ namespace DevOcean.Engine
             return taxData;
         }
 
-        public bool IsValidateInput(List<string> input) 
+        public bool IsValidateInput(List<string> input)
             => input.Count == InputParamsCount
                 && !input.Any(string.IsNullOrWhiteSpace)
                 && !input.Any(string.IsNullOrEmpty)
