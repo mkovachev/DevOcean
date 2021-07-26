@@ -45,7 +45,7 @@ namespace DevOcean.Tests.Engine
             // Assert
             Assert.True(result.Count == 4);
         }
-        
+
         [Theory]
         [InlineData("family", "1", "1", "nonDigits")]
         [InlineData("family", "1", "1", "")]
