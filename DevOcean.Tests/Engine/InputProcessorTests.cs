@@ -19,9 +19,8 @@ namespace DevOcean.Tests.Engine
         }
 
         [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void ReadInput_Should_Returns_Null_List_With_Strings(string input)
+        [InlineData("input")]
+        public void ReadInput_Should_Return_List_OfType_Strings(string input)
         {
             // Arange
             this.reader.ReadLine().ToLower().Trim().Returns(input);
@@ -31,6 +30,20 @@ namespace DevOcean.Tests.Engine
 
             // Assert
             Assert.IsType<List<string>>(result);
+        }
+
+        [Theory]
+        [InlineData("input")]
+        public void ReadInput_Should_Return_List_With_Four_Elements(string input)
+        {
+            // Arange
+            this.reader.ReadLine().ToLower().Trim().Returns(input);
+
+            // Act
+            var result = this.sut.ReadInput();
+
+            // Assert
+            Assert.True(result.Count == 4);
         }
     }
 }
