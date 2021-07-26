@@ -42,7 +42,6 @@ namespace DevOcean.Engine
                 default: return null;
             }
 
-            // 
             return result.ToString(CultureInfo.InvariantCulture);
         }
     }
