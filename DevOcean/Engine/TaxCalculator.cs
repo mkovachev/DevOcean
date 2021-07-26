@@ -27,7 +27,7 @@ namespace DevOcean.Engine
         {
             decimal result;
 
-            var spaceshipType = Enum.Parse(typeof(SpaceshipType), this.inputProcessorHelper.CapitalizeFirstletter(taxData[0]));
+            var spaceshipType = Enum.Parse(typeof(SpaceshipType), this.inputProcessorHelper.CapitalizeFirstLetter(taxData[0]));
             var yearOfPurchase = int.Parse(taxData[1]);
             var yearForTaxCalculation = int.Parse(taxData[2]);
             var milesTraveled = this.inputProcessorHelper.GetDigitsAfterThousandSeparator(taxData[3]);

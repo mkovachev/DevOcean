@@ -35,7 +35,6 @@ namespace DevOcean.Engine
                     }
                     else
                     {
-                        taxData.Clear();
                         this.writer.WriteLine("Please provide valid input!");
                         this.writer.WriteLine("--------------------------------------");
                         continue;
