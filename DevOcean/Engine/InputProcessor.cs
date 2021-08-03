@@ -24,7 +24,7 @@ namespace DevOcean.Engine
 
         public List<string> ReadInput()
         {
-            var taxData = new List<string>(); // change with class sss
+            var taxData = new List<string>(); // change with class
             try
             {
                 this.writer.Write("Please type in a spaceship type: ");
