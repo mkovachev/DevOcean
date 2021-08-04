@@ -19,13 +19,9 @@ namespace DevOcean.Tests.Engine
             this.sut = new InputProcessor(reader, writer, guard);
         }
 
-        [Theory]
-        [InlineData("input")]
-        public void ReadInput_Should_Return_List_OfType_Strings(string input)
+        [Fact]
+        public void ReadInput_Should_Return_List_OfType_Strings()
         {
-            // Arrange
-            this.reader.ReadLine().ToLower().Trim().Returns(input);
-
             // Act
             var result = this.sut.ReadInput();
 
