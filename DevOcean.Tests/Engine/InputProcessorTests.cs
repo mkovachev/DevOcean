@@ -1,8 +1,8 @@
 ﻿using DevOcean.Engine;
 using DevOcean.Engine.Interfaces;
+using DevOcean.Engine.Models;
 using DevOcean.Infrastructure.Interfaces;
 using NSubstitute;
-using System.Collections.Generic;
 using Xunit;
 
 namespace DevOcean.Tests.Engine
@@ -12,11 +12,11 @@ namespace DevOcean.Tests.Engine
         private readonly IInputProcessor sut;
         private readonly IWriter writer = Substitute.For<IWriter>();
         private readonly IReader reader = Substitute.For<IReader>();
-        private readonly IInputHelper inputHelper = Substitute.For<IInputHelper>();
+        private readonly IGuard guard = Substitute.For<IGuard>();
 
         public InputProcessorTests()
         {
-            this.sut = new InputProcessor(reader, writer, inputHelper);
+            this.sut = new InputProcessor(reader, writer, guard);
         }
 
         [Theory]
@@ -30,45 +30,44 @@ namespace DevOcean.Tests.Engine
             var result = this.sut.ReadInput();
 
             // Assert
-            Assert.IsType<List<string>>(result);
+            Assert.IsType<InputData>(result);
         }
 
-        [Theory]
-        [InlineData("input")]
-        public void ReadInput_Should_Return_List_With_Four_Elements(string input)
+        [Fact]
+        public void ReadInput_Should_Return_InputData_Class_With_Four_Props()
         {
             // Arrange
-            this.reader.ReadLine().ToLower().Trim().Returns(input);
+            //this.reader.ReadLine().ToLower().Trim().Returns(input);
 
             // Act
             var result = this.sut.ReadInput();
 
             // Assert
-            Assert.True(result.Count == 4);
+            Assert.True(result.Count() == 4);
         }
 
         [Theory]
         [InlineData("family", "1", "1", "nonDigits")]
         [InlineData("family", "1", "1", "")]
         [InlineData("family", "1", "1", " ")]
-        [InlineData("family", "1", "1", null)]
-        public void IsValidInput_Should_Return_IsValidInput_False_If_Input_Contains_Null_WhiteSpace_NonDigits_Parameters(
+        [InlineData("family", "1", "1", "-1")]
+        public void IsValidInput_Should_Return_False_If_Input_Contains_Null_Empty_WhiteSpace_NonDigits_Negative_Zero_Parameters(
             string spaceshipType,
             string yearOfPurchase,
             string yearForTaxCalculation,
-            string milesTraveled)
+            string lightMilesTraveled)
         {
             // Arrange
-            var taxData = new List<string>()
+            var inputData = new InputData()
             {
-                spaceshipType,
-                yearOfPurchase,
-                yearForTaxCalculation,
-                milesTraveled
+                SpaceshipType = spaceshipType,
+                PurchaseDate = yearOfPurchase,
+                YearOfTaxCalculation = yearForTaxCalculation,
+                LightMilesTraveled = lightMilesTraveled
             };
 
             // Act
-            var result = this.sut.IsValidateInput(taxData);
+            var result = this.sut.IsValidateInput(inputData);
 
             // Assert
             Assert.False(result);

@@ -25,13 +25,13 @@ namespace DevOcean.Engine
             {
                 try
                 {
-                    var taxData = this.inputProcessor.ReadInput();
+                    var inputData = this.inputProcessor.ReadInput();
 
-                    var isValidInput = this.inputProcessor.IsValidateInput(taxData);
+                    var isValidInput = this.inputProcessor.IsValidateInput(inputData);
 
                     if (isValidInput)
                     {
-                        calculatedTax = this.taxCalculator.CalculateTax(taxData);
+                        calculatedTax = this.taxCalculator.CalculateTax(inputData);
                     }
                     else
                     {

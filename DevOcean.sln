@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevOcean", "DevOcean\DevOce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevOcean.Console", "DevOcean.Console\DevOcean.Console.csproj", "{89E0C887-CDF1-4E91-BF58-A9399864EB9B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevOcean.Tests", "DevOcean.Tests\DevOcean.Tests.csproj", "{C2583A1A-C512-49F2-A773-5B9D6D389D36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DevOcean.Tests", "DevOcean.Tests\DevOcean.Tests.csproj", "{C2583A1A-C512-49F2-A773-5B9D6D389D36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

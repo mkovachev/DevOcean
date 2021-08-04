@@ -1,8 +1,8 @@
 ﻿using DevOcean.Data.Enums;
 using DevOcean.Engine.Interfaces;
+using DevOcean.Engine.Models;
 using DevOcean.Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 namespace DevOcean.Engine
@@ -24,21 +24,21 @@ namespace DevOcean.Engine
             this.inputProcessorHelper = inputProcessorHelper;
         }
 
-        public string CalculateTax(IList<string> taxData)
+        public string CalculateTax(InputData input)
         {
             decimal result;
 
-            var spaceshipType = Enum.Parse(typeof(SpaceshipType), this.inputProcessorHelper.CapitalizeFirstLetter(taxData[0]));
-            var yearOfPurchase = int.Parse(taxData[1]);
-            var yearForTaxCalculation = int.Parse(taxData[2]);
-            var milesTraveled = this.inputProcessorHelper.GetDigitsAfterThousandSeparator(taxData[3]);
+            var spaceshipType = Enum.Parse(typeof(SpaceshipType), this.inputProcessorHelper.CapitalizeFirstLetter(input.SpaceshipType));
+            var yearOfPurchase = int.Parse(input.PurchaseDate);
+            var yearForTaxCalculation = int.Parse(input.YearOfTaxCalculation);
+            var lightMilesTraveled = this.inputProcessorHelper.GetDigitsAfterThousandSeparator(input.LightMilesTraveled);
 
             switch (spaceshipType)
             {
                 case SpaceshipType.Cargo:
-                    result = InitialTaxCargo + (int.Parse(milesTraveled) * TaxPer1000LightMilesCargo) - ((yearForTaxCalculation - yearOfPurchase) * TaxAmortizationPerYearCargo); break;
+                    result = InitialTaxCargo + (int.Parse(lightMilesTraveled) * TaxPer1000LightMilesCargo) - ((yearForTaxCalculation - yearOfPurchase) * TaxAmortizationPerYearCargo); break;
                 case SpaceshipType.Family:
-                    result = InitialTaxFamily + (int.Parse(milesTraveled) * TaxPer1000LightMilesFamily) - ((yearForTaxCalculation - yearOfPurchase) * TaxAmortizationPerYearFamily); break;
+                    result = InitialTaxFamily + (int.Parse(lightMilesTraveled) * TaxPer1000LightMilesFamily) - ((yearForTaxCalculation - yearOfPurchase) * TaxAmortizationPerYearFamily); break;
                 default: return null;
             }
 

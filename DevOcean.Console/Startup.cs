@@ -1,6 +1,8 @@
-﻿using Autofac;
-using DevOcean.Console.IoCConfig;
+﻿using DevOcean.Engine;
 using DevOcean.Engine.Interfaces;
+using DevOcean.Infrastructure;
+using DevOcean.Infrastructure.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace DevOcean.Console
 {
@@ -8,12 +10,20 @@ namespace DevOcean.Console
     {
         public static void Main()
         {
-            var builder = new ContainerBuilder();
-            builder.RegisterModule(new AutofacConfig());
-            var container = builder.Build();
-
-            var engine = container.Resolve<IEngine>();
-            engine.Start();
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+            var serviceProvider = services.BuildServiceProvider();
+            serviceProvider.GetService<IEngine>().Start();
+        }
+        private static void ConfigureServices(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddSingleton<IWriter, ConsoleWriter>();
+            serviceCollection.AddSingleton<IReader, ConsoleReader>();
+            serviceCollection.AddSingleton<IGuard, Guard>();
+            serviceCollection.AddScoped<IInputHelper, InputHelper>();
+            serviceCollection.AddScoped<ITaxCalculator, TaxCalculator>();
+            serviceCollection.AddScoped<IInputProcessor, InputProcessor>();
+            serviceCollection.AddSingleton<IEngine, SpaceEngine>();
         }
     }
 }

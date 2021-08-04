@@ -1,8 +1,8 @@
 ﻿using DevOcean.Engine;
 using DevOcean.Engine.Interfaces;
+using DevOcean.Engine.Models;
 using DevOcean.Infrastructure.Interfaces;
 using NSubstitute;
-using System.Collections.Generic;
 using System.Globalization;
 using Xunit;
 
@@ -25,25 +25,25 @@ namespace DevOcean.Tests.Engine
             string spaceshipType,
             string yearOfPurchase,
             string yearForTaxCalculation,
-            string milesTraveled,
+            string lightMilesTraveled,
             int expected)
         {
             //Arange
             this.inputHelper.CapitalizeFirstLetter(spaceshipType)
                 .Returns(char.ToUpper(spaceshipType[0]) + spaceshipType.Substring(1));
-            this.inputHelper.GetDigitsAfterThousandSeparator(milesTraveled)
-                .Returns(int.Parse(milesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
+            this.inputHelper.GetDigitsAfterThousandSeparator(lightMilesTraveled)
+                .Returns(int.Parse(lightMilesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
 
-            var taxData = new List<string>()
+            var inputData = new InputData()
             {
-                spaceshipType,
-                yearOfPurchase,
-                yearForTaxCalculation,
-                milesTraveled
+                SpaceshipType = spaceshipType,
+                PurchaseDate = yearOfPurchase,
+                YearOfTaxCalculation = yearForTaxCalculation,
+                LightMilesTraveled = lightMilesTraveled
             };
 
             //Act
-            var result = this.sut.CalculateTax(taxData);
+            var result = this.sut.CalculateTax(inputData);
 
             //Assert
             Assert.Equal(expected.ToString(), result);
@@ -56,24 +56,24 @@ namespace DevOcean.Tests.Engine
            string spaceshipType,
            string yearOfPurchase,
            string yearForTaxCalculation,
-           string milesTraveled)
+           string lightMilesTraveled)
         {
             //Arange
             this.inputHelper.CapitalizeFirstLetter(spaceshipType)
                 .Returns(char.ToUpper(spaceshipType[0]) + spaceshipType.Substring(1));
-            this.inputHelper.GetDigitsAfterThousandSeparator(milesTraveled)
-                .Returns(int.Parse(milesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
+            this.inputHelper.GetDigitsAfterThousandSeparator(lightMilesTraveled)
+                .Returns(int.Parse(lightMilesTraveled).ToString("n", CultureInfo.GetCultureInfo("en-US")).Split(",")[0]);
 
-            var taxData = new List<string>()
+            var inputData = new InputData()
             {
-                spaceshipType,
-                yearOfPurchase,
-                yearForTaxCalculation,
-                milesTraveled
+                SpaceshipType = spaceshipType,
+                PurchaseDate = yearOfPurchase,
+                YearOfTaxCalculation = yearForTaxCalculation,
+                LightMilesTraveled = lightMilesTraveled
             };
 
             //Act
-            var result = this.sut.CalculateTax(taxData);
+            var result = this.sut.CalculateTax(inputData);
 
             //Assert
             Assert.NotNull(result);
