@@ -1,6 +1,8 @@
-﻿namespace DevOcean.Engine.Models
+﻿using DevOcean.Infrastructure;
+
+namespace DevOcean.Engine.Models
 {
-    public class InputData
+    public class InputData : Countable<InputData>
     {
         public string SpaceshipType { get; set; }
 
