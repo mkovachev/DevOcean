@@ -36,9 +36,6 @@ namespace DevOcean.Tests.Engine
         [Fact]
         public void ReadInput_Should_Return_InputData_Class_With_Four_Props()
         {
-            // Arrange
-            //this.reader.ReadLine().ToLower().Trim().Returns(input);
-
             // Act
             var result = this.sut.ReadInput();
 
