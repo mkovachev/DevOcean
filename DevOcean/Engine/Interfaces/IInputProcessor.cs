@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using DevOcean.Engine.Models;
 
 namespace DevOcean.Engine.Interfaces
 {
     public interface IInputProcessor
     {
-        public List<string> ReadInput();
+        public InputData ReadInput();
 
-        public bool IsValidateInput(List<string> input);
+        public bool IsValidateInput(InputData input);
     }
 }

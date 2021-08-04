@@ -1,30 +1,27 @@
-﻿using DevOcean.Data.Enums;
-using DevOcean.Engine.Interfaces;
+﻿using DevOcean.Engine.Interfaces;
+using DevOcean.Engine.Models;
 using DevOcean.Infrastructure.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace DevOcean.Engine
 {
     public class InputProcessor : IInputProcessor
     {
-        private const int InputParamsCount = 4;
-
         private readonly IWriter writer;
         private readonly IReader reader;
-        private readonly IInputHelper inputHelper;
+        private readonly IGuard guard;
 
-        public InputProcessor(IReader reader, IWriter writer, IInputHelper inputHelper)
+        public InputProcessor(IReader reader, IWriter writer, IGuard guard)
         {
             this.reader = reader;
             this.writer = writer;
-            this.inputHelper = inputHelper;
+            this.guard = guard;
         }
 
-        public List<string> ReadInput()
+        public InputData ReadInput()
         {
-            var taxData = new List<string>(); // change with class
+            var inputData = new InputData();
+
             try
             {
                 this.writer.Write("Please type in a spaceship type: ");
@@ -37,28 +34,37 @@ namespace DevOcean.Engine
                 var yearOfTaxCalculation = this.reader.ReadLine().ToLower().Trim();
 
                 this.writer.Write("Please type in a light miles travaled: ");
-                var lightMilesTravaled = this.reader.ReadLine().ToLower().Trim();
+                var lightMilesTraveled = this.reader.ReadLine().ToLower().Trim();
 
-                taxData.Add(spaceshipType);
-                taxData.Add(purchaseDate);
-                taxData.Add(yearOfTaxCalculation);
-                taxData.Add(lightMilesTravaled);
+                inputData.SpaceshipType = spaceshipType;
+                inputData.PurchaseDate = purchaseDate;
+                inputData.YearOfTaxCalculation = yearOfTaxCalculation;
+                inputData.LightMilesTraveled = lightMilesTraveled;
             }
             catch (Exception ex)
             {
                 this.writer.WriteLine($"{ex.Message}");
             }
 
-            return taxData;
+            return inputData;
         }
 
-        public bool IsValidateInput(List<string> input)
-            => input.Count == InputParamsCount
-                           && !input.Any(i => string.IsNullOrWhiteSpace(i))
-                           && !input.Any(i => string.IsNullOrEmpty(i))
-                           && input.Skip(1).All(i => !i.Any(x => !char.IsDigit(x)))
-                           && Enum.TryParse(this.inputHelper.CapitalizeFirstLetter(input[0]), out SpaceshipType type)
-                           && type != SpaceshipType.Unknown;
+        public bool IsValidateInput(InputData input)
+        {
+            var isValidSpaceshipType = this.guard.AgainstInvalidSpaceshipType(input.SpaceshipType);
+            var isValidPurchaseDate = ValidateInput(input.PurchaseDate);
+            var isValidYearOfTaxCalculation = ValidateInput(input.YearOfTaxCalculation);
+            var isValidLightMilesTraveled = ValidateInput(input.LightMilesTraveled);
 
+            return isValidSpaceshipType && isValidPurchaseDate && isValidYearOfTaxCalculation && isValidLightMilesTraveled;
+        }
+
+        private bool ValidateInput(string value)
+        {
+            return this.guard.AgainstNullOrEmpty(value)
+                && this.guard.AgainstNullOrWhiteSpace(value)
+                && this.guard.AgainstNonDigits(value)
+                && this.guard.AgainstNegativeOrZero(value);
+        }
     }
 }
